@@ -1,0 +1,61 @@
+[
+{
+    "model": "php.ext",
+    "pk": 1,
+    "fields":
+    {
+        "name": "iconv",
+        "cmd": null,
+        "version": "5.6"
+    }
+},
+{
+    "model": "php.ext",
+    "pk": 2,
+    "fields":
+    {
+        "name": "gd",
+        "cmd": "apt-get update && apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && docker-php-ext-install -j$(nproc) gd",
+        "version": "5.6"
+    }
+},
+{
+    "model": "php.ext",
+    "pk": 3,
+    "fields":
+    {
+        "name": "redis",
+        "cmd": "pecl install redis-4.0.1 && docker-php-ext-enable redis",
+        "version": "5.6"
+    }
+},
+{
+    "model": "php.ext",
+    "pk": 4,
+    "fields":
+    {
+        "name": "xdebug",
+        "cmd": "pecl install xdebug-2.6.0 && docker-php-ext-enable xdebug",
+        "version": "7.3"
+    }
+},
+{
+    "model": "php.ext",
+    "pk": 5,
+    "fields":
+    {
+        "name": "memcached",
+        "cmd": "apt-get update && apt-get install -y libmemcached-dev zlib1g-dev && pecl install memcached-2.2.0 && docker-php-ext-enable memcached",
+        "version": "5.6"
+    }
+},
+{
+    "model": "php.ext",
+    "pk": 6,
+    "fields":
+    {
+        "name": "pdo_mysql",
+        "cmd": null,
+        "version": "5.6"
+    }
+}]

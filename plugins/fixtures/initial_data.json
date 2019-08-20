@@ -1,0 +1,65 @@
+[
+{
+    "model": "plugins.list",
+    "pk": 1,
+    "fields":
+    {
+        "name": "caddy",
+        "class_name": "Caddy",
+        "version": "",
+        "config":"{\"email\":\"a@b.c\"}"
+    }
+},
+{
+    "model": "plugins.list",
+    "pk": 2,
+    "fields":
+    {
+        "name": "php",
+        "class_name": "Php",
+        "version": "5.6"
+    }
+},
+{
+    "model": "plugins.list",
+    "pk": 3,
+    "fields":
+    {
+        "name": "php",
+        "class_name": "Php",
+        "version": "7.3"
+    }
+},
+{
+    "model": "plugins.list",
+    "pk": 4,
+    "fields":
+    {
+        "name": "mysql",
+        "class_name": "Mysql",
+        "version": "5",
+        "config":"{\"password\":\"12345678\"}"
+    }
+},
+{
+    "model": "plugins.list",
+    "pk": 5,
+    "fields":
+    {
+        "name": "mysql",
+        "class_name": "Mysql",
+        "version": "8",
+        "config":"{\"password\":\"12345678\"}"
+    }
+},
+{
+    "model": "plugins.list",
+    "pk": 6,
+    "fields":
+    {
+        "name": "phpmyadmin",
+        "class_name": "PhpMyAdmin",
+        "version": "",
+        "config":"{\"hosts\":\"172.17.0.1,172.17.0.1\",\"ports\":\"3306,3308\",\"port\":8887}"
+    }
+}]

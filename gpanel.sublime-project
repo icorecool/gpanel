@@ -1,0 +1,14 @@
+{
+	"folders":
+	[
+		{
+			"path": "."
+		},
+        {
+            "path": "./../django-rest-framework/rest_framework"
+        },
+        {
+            "path": "./../django/django"
+        }
+	]
+}
