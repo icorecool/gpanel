@@ -1,5 +1,5 @@
 import json
-from core import mixins
+from core import mixins, randomString
 from core.views import errors
 from rest_framework.decorators import action
 
@@ -8,8 +8,7 @@ from .filters import ListFilter
 from .models import List
 from plugins.models import List as Plugins
 from mysql.mysql import Mysql
-from core import randomString
-from caddy.models import Vhosts
+from vhosts.models import Vhosts
 
 
 def createDB(name, ver=5, vhost=None):
@@ -90,10 +89,9 @@ class ListViewSet(mixins.ReadOnlyModelViewSet):
         conf = dict(json.loads(info.config))
         cls_obj = Mysql(**conf)
         container = cls_obj.removeDB(mysqldb.version, mysqldb.name)
-        if container:
-            # 删除数据库
-            mysqldb.delete()
-        else:
-            return errors(500)
+        # 删除数据库
+        mysqldb.delete()
+        if not container:
+            return errors(400, '请手动删除数据库')
         # 返回提示
         return errors(204)

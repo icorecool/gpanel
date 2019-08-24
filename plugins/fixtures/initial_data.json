@@ -38,7 +38,7 @@
         "name": "mysql",
         "class_name": "Mysql",
         "version": "5",
-        "config":"{\"password\":\"12345678\"}"
+        "config":"{\"password\":\"\"}"
     }
 },
 {
@@ -49,7 +49,7 @@
         "name": "mysql",
         "class_name": "Mysql",
         "version": "8",
-        "config":"{\"password\":\"12345678\"}"
+        "config":"{\"password\":\"\"}"
     }
 },
 {
@@ -61,5 +61,16 @@
         "class_name": "PhpMyAdmin",
         "version": "",
         "config":"{\"hosts\":\"172.17.0.1,172.17.0.1\",\"ports\":\"3306,3308\",\"port\":8887}"
+    }
+},
+{
+    "model": "plugins.list",
+    "pk": 7,
+    "fields":
+    {
+        "name": "apache",
+        "class_name": "Apache",
+        "version": "",
+        "config":"{\"email\":\"a@b.c\"}"
     }
 }]

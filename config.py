@@ -50,10 +50,9 @@ def mkfile(path, value, rewrite=False):
         try:
             f = open(path, 'w')
             f.write(value)
+            f.close()
         except Exception as e:
             return False
-        finally:
-            f.close()
         return True
     try:
         f = open(path, 'r')

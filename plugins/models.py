@@ -19,7 +19,7 @@ class Container(models.Model):
     id = models.CharField(
         max_length=65, unique=True, verbose_name='ID')
     plugins = models.OneToOneField(
-        List, on_delete=models.CASCADE, verbose_name='相关插件')
+        List, on_delete=models.CASCADE, related_name="container", verbose_name='相关插件')
     name = models.CharField(
         max_length=65, primary_key=True, unique=True, verbose_name='名称')
     args = models.CharField(

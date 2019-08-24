@@ -1,12 +1,13 @@
 import os
 from plugins.base import Base
-from caddy import DRIVER_NAME
+from config import GATEWAY, WWW_DIR, mkdir, mkfile, CONFIG_DIR
+from . import STATUS, PHP_VERSION, DRIVER_NAME, MYSQL_VERSION
 
 
 class Caddy(Base):
     """docstring for Caddy"""
 
-    def __init__(self, email, *args, **kwargs):
+    def __init__(self, email='a@b.c', *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.email = email
         self.driver_name = DRIVER_NAME
@@ -14,6 +15,8 @@ class Caddy(Base):
 
     def setup(self, container):
         """创建"""
+        ssldir = '%s/ssl' % self.config_dir
+        self.mkdir(ssldir)
         confdir = os.path.join(self.config_dir, self.driver_name)
         self.mkdir(confdir)
         self.mkdir('%s/vhosts' % confdir)
@@ -43,6 +46,7 @@ class Caddy(Base):
             },
             "volumes": {
                 confdir: {"bind": '/caddy/conf/', 'mode': 'rw'},
+                ssldir: {"bind": '/caddy/ssl', 'mode': 'ro'},
                 self.www_dir: {"bind": '/var/www/html/', 'mode': 'rw'}
             }
         }
@@ -59,3 +63,42 @@ class Caddy(Base):
         container.id = ret.attrs['Id']
         container.create_time = ret.attrs['Created']
         return container
+
+    def createstr(self, vhost):
+        schemes = ['http://']
+        if vhost.autossl:
+            schemes.append('https://')
+        # 生成配置文件
+        if vhost.domain.find(":") == -1:
+            domain = []
+            for scheme in schemes:
+                domain.append(scheme + vhost.domain)
+        else:
+            domain = [vhost.domain]
+        alias = vhost.alias.all()
+        for x in alias:
+            if x.domain.find(":") == -1:
+                for scheme in schemes:
+                    domain.append(scheme + x.domain)
+            else:
+                domain.append(x.domain)
+        strlist = [' '.join(domain) + ' { ']
+        path = '%s/%s' % (WWW_DIR, vhost.root)
+        mkdir(path)
+        strlist.append('root /var/www/html/%s' % vhost.root)
+        if not vhost.autossl:
+            strlist.append('tls off')
+        if vhost.tls_crt != '' and vhost.tls_key != '':
+            strlist.append(
+                'tls /caddy/ssl/%s /caddy/ssl/%s' % (vhost.tls_crt, vhost.tls_key))
+        if vhost.php:
+            strlist.append('fastcgi / %s:%s php' % (GATEWAY, vhost.php))
+        if vhost.gzip:
+            strlist.append('gzip')
+        if vhost.customize:
+            strlist.append(vhost.customize)
+        strlist.append('}')
+        string = ' \n'.join(strlist)
+        path = '%s/%s/vhosts/%s.conf' % (CONFIG_DIR, DRIVER_NAME, vhost.domain)
+        mkfile(path, string, True)
+        return string

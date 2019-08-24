@@ -18,9 +18,8 @@ from django.urls import path, include, re_path
 from django.views.static import serve
 from django.contrib import admin
 from . import settings
-from caddy.urls import router as caddy
+from vhosts.urls import router as vhosts
 from plugins.urls import router as plugins
-from php.urls import router as php
 from mysql.urls import router as mysql
 from django.views.generic import TemplateView
 from django.conf.urls.static import static
@@ -31,9 +30,8 @@ urlpatterns = [
         name='index'),
     url(r'^admin/', admin.site.urls),
     # 版本1
-    path('v1/caddy/', include(caddy.urls)),
+    path('v1/vhosts/', include(vhosts.urls)),
     path('v1/plugins/', include(plugins.urls)),
-    path('v1/php/', include(php.urls)),
     path('v1/mysql/', include(mysql.urls)),
 ] + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)
 

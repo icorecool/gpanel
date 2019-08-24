@@ -8,7 +8,7 @@ class List(models.Model):
     password = models.CharField(
         max_length=32, unique=False, verbose_name='密码')
     vhost = models.ForeignKey(
-        "caddy.Vhosts", on_delete=models.DO_NOTHING, null=True, related_name="mysqldb", verbose_name='相关网站')
+        "vhosts.Vhosts", on_delete=models.DO_NOTHING, null=True, related_name="mysqldb", verbose_name='相关网站')
     create_time = models.DateTimeField(
         auto_now_add=True, verbose_name='创建时间')
 
